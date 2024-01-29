@@ -22,7 +22,7 @@ export const SignUp = () => {
 }
 
   const signup = async () => {
-    const { data } = await axios.post('http://localhost:8000/account/signup', {
+    const { data } = await axios.post('https://localhost:8000/account/signup', {
         userId: user,
         password: password,
         confirmedPassword: confirmedPassword

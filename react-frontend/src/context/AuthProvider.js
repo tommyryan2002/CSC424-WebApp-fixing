@@ -6,15 +6,16 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
   
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState(document.cookie.replace("token=", ""));
   
     const handleLogin = async (user, password) => {
-      const { data } = await axios.post('http://localhost:8000/account/login', {
+      const { data } = await axios.post('https://localhost:8000/account/login', {
         userId: user,
         password: password
       })
       const token = data.token
       if(token) {
+        document.cookie = `token=${token}`
         setToken(token);
         navigate("/landing");
         return true
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }) => {
     };
 
   const handleLogout = () => {
+    document.cookie = `token=`
     setToken(null);
   };
 
